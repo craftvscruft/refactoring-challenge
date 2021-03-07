@@ -96,9 +96,6 @@ let questions = [
   },
 ];
 
-//select quiz container
-let container = document.getElementById("quiz");
-
 // select question container
 const questionContainer = document.querySelector("#question");
 //select all radio buttons
@@ -113,8 +110,6 @@ let result = document.getElementById("result");
 
 //set default index of zero for question
 let currentQuestionIndex = 0;
-//set default index of zero for answer
-let answer = 0;
 let score = 0;
 let body = document.querySelector("body");
 //select message
@@ -166,27 +161,7 @@ function handleNextQuestion() {
     body.innerHTML = "Well Done! Your Score:" + score;
     // restart
     currentQuestionIndex = 0;
-    answer = 0;
   }
   result.innerHTML = "Score: " + score;
   getQuestion();
-}
-//set time for quiz to 10 minutes
-let time = 10;
-//convert time to seconds
-let second = parseInt(time * 60);
-//setInterval
-setInterval(displayTimer, 1000);
-//function o display timer
-function displayTimer() {
-  //select timer dive to display time
-  document.getElementById("time").innerHTML =
-    "Time Left: " + time + " min " + second;
-  //minimize time
-  second--;
-  //condition to stop timer
-  if (time === 0) {
-    clearInterval(interval);
-    document.getElementById("time").innerHTML = "Time is Up!";
-  }
 }

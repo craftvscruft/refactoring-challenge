@@ -10,10 +10,9 @@
     "prettier": "2.2.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cypress run",
     "lint": "eslint src/**/*.js",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
     "prettier": "prettier --write src"
   },
   "author": "",
