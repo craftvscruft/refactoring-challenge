@@ -96,24 +96,21 @@ let questions = [
   },
 ];
 
-// select question container
 const questionContainer = document.querySelector("#question");
-//select all radio buttons
-const selectedOption = Array.from(
+
+const allRadioButtons = Array.from(
   document.querySelectorAll("input[name=option]")
 );
 
 const nextButton = document.querySelector(".next");
 
-//select result container
-let result = document.getElementById("result");
+let resultContainer = document.getElementById("result");
 
-//set default index of zero for question
 let currentQuestionIndex = 0;
 let score = 0;
 let body = document.querySelector("body");
 //select message
-let message = document.getElementById("message");
+let messageContainer = document.getElementById("message");
 //write a function to display questions
 function getQuestion() {
   // define a variable that selects random options
@@ -122,7 +119,7 @@ function getQuestion() {
   questionContainer.textContent =
     currentQuestionIndex + 1 + ". " + questions[currentQuestionIndex].question;
   console.log(questionContainer.textContent);
-  selectedOption.forEach(function (input, i) {
+  allRadioButtons.forEach(function (input, i) {
     // Set radio button check value
     input.value = answers[i];
     //reset value
@@ -149,10 +146,10 @@ function handleNextQuestion() {
   if (ans == questions[currentQuestionIndex].option[0]) {
     score += 5;
     // alert('correct answer');
-    message.innerText = "Great Job! Your Answer is correct";
+    messageContainer.innerText = "Great Job! Your Answer is correct";
   } else {
     // alert('answer is wrong');
-    message.innerText = "Oops! Your answer is wrong";
+    messageContainer.innerText = "Oops! Your answer is wrong";
   }
   // next question
   currentQuestionIndex++;
@@ -162,6 +159,6 @@ function handleNextQuestion() {
     // restart
     currentQuestionIndex = 0;
   }
-  result.innerHTML = "Score: " + score;
+  resultContainer.innerHTML = "Score: " + score;
   getQuestion();
 }
