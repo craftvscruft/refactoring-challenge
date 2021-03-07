@@ -106,59 +106,76 @@ const nextButton = document.querySelector(".next");
 
 let resultContainer = document.getElementById("result");
 
-let currentQuestionIndex = 0;
-let score = 0;
+let currentQuestionIndex;
+let score;
 let body = document.querySelector("body");
-//select message
+
 let messageContainer = document.getElementById("message");
-//write a function to display questions
-function getQuestion() {
-  // define a variable that selects random options
+
+function displayQuestionOptionText(radioButton, text) {
+  let ansContainer = radioButton.nextElementSibling;
+  ansContainer.textContent = text;
+}
+
+function displayQuestion() {
   const answers = questions[currentQuestionIndex].option;
-  // for each input display questions
+
   questionContainer.textContent =
     currentQuestionIndex + 1 + ". " + questions[currentQuestionIndex].question;
-  console.log(questionContainer.textContent);
-  allRadioButtons.forEach(function (input, i) {
-    // Set radio button check value
-    input.value = answers[i];
-    //reset value
-    input.checked = false;
-    // Display the options text
-    let ansContainer = input.nextElementSibling;
-    ansContainer.textContent = answers[i];
+  allRadioButtons.forEach(function (radioButton, i) {
+    radioButton.value = answers[i];
+    radioButton.checked = false;
+    displayQuestionOptionText(radioButton, answers[i]);
   });
 }
-getQuestion();
 
-//add EventListener to next button
+
 nextButton.addEventListener("click", handleNextQuestion);
+
+function updateScore(selectedAnswer, correctAnswer) {
+  if (selectedAnswer == correctAnswer) {
+    score += 5;
+    messageContainer.innerText = "Great Job! Your Answer is correct";
+  } else {
+    messageContainer.innerText = "Oops! Your answer is wrong";
+  }
+}
+
+function displayScore(score) {
+  resultContainer.innerHTML = "Score: " + score;
+}
+
+function displayFinalScore(score) {
+  body.innerHTML = "Well Done! Your Score:" + score;
+}
+
+function restart() {
+  currentQuestionIndex = 0;
+  score = 0;
+}
+
+function advanceToNextQuestion() {
+  currentQuestionIndex++;
+  if (currentQuestionIndex >= questions.length) {
+    displayFinalScore(score);
+    restart();
+  }
+}
+
 function handleNextQuestion() {
-  // provide condition to correct answer
-  let selectAnswer = document.querySelector("input[type=radio]:checked");
-  if (!selectAnswer) {
+  let checkedRadioButton = document.querySelector("input[type=radio]:checked");
+  if (!checkedRadioButton) {
     console.log("No answer. TODO: show message.");
     return;
   }
-  let ans = selectAnswer.value;
-  // update number of correctly answered questions:
-  // result.innerHTML = 'Score: ' + score;
-  if (ans == questions[currentQuestionIndex].option[0]) {
-    score += 5;
-    // alert('correct answer');
-    messageContainer.innerText = "Great Job! Your Answer is correct";
-  } else {
-    // alert('answer is wrong');
-    messageContainer.innerText = "Oops! Your answer is wrong";
-  }
-  // next question
-  currentQuestionIndex++;
-  if (currentQuestionIndex >= questions.length) {
-    //display score
-    body.innerHTML = "Well Done! Your Score:" + score;
-    // restart
-    currentQuestionIndex = 0;
-  }
-  resultContainer.innerHTML = "Score: " + score;
-  getQuestion();
+  let selectedAnswer = checkedRadioButton.value;
+  const correctAnswer = questions[currentQuestionIndex].option[0];
+  updateScore(selectedAnswer, correctAnswer);
+  advanceToNextQuestion();
+  displayScore(score);
+  displayQuestion();
 }
+
+
+restart();
+displayQuestion();
