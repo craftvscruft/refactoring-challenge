@@ -145,7 +145,7 @@ function handleNextQuestion() {
   // provide condition to correct answer
   let selectAnswer = document.querySelector("input[type=radio]:checked");
   if (!selectAnswer) {
-    console.log("No answer. TODO: show message.")
+    console.log("No answer. TODO: show message.");
     return;
   }
   let ans = selectAnswer.value;

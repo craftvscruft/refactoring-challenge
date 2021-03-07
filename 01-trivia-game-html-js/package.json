@@ -11,10 +11,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint *.js",
+    "lint": "eslint src/**/*.js",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write src"
   },
   "author": "",
   "license": "UNLICENSED"
