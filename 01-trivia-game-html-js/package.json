@@ -1,0 +1,21 @@
+{
+  "name": "01-trivia-game-html",
+  "version": "1.0.0",
+  "description": "Check your HTML, CSS and JavaScript knowledge.",
+  "main": "quiz.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^6.5.0",
+    "eslint": "^7.21.0",
+    "prettier": "2.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint *.js",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "prettier": "prettier --write ."
+  },
+  "author": "",
+  "license": "UNLICENSED"
+}
