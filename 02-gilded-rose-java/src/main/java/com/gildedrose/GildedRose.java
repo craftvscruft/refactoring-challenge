@@ -19,7 +19,8 @@ class GildedRose {
     }
 
     private void updateItemQuality(Item item) {
-        int degradeRate = item.name.equals(CONJURED) ? -2 : -1;
+        boolean isExpired = item.sellIn < 1;
+        int degradeRate = determineDegradeRate(item, isExpired);
         boolean doesDegrade = !item.name.equals(AGED_BRIE) && !item.name.equals(BACKSTAGE_PASSES) && !item.name.equals(SULFURAS);
 
         if (doesDegrade) {
@@ -45,16 +46,18 @@ class GildedRose {
             item.sellIn = item.sellIn - 1;
         }
 
-        if (item.sellIn < 0) {
-            if (doesDegrade) {
-                adjustQuality(item, degradeRate);
-            }
+        if (isExpired) {
             if (item.name.equals(AGED_BRIE)) {
                 adjustQuality(item, 1);
             } else if (item.name.equals(BACKSTAGE_PASSES)) {
                 item.quality = item.quality - item.quality;
             }
         }
+    }
+
+    private int determineDegradeRate(Item item, boolean isExpired) {
+        int baseDegradeRate = item.name.equals(CONJURED) ? -2 : -1;
+        return isExpired ? baseDegradeRate * 2 : baseDegradeRate;
     }
 
     private void adjustQuality(Item item, int adjustment) {
