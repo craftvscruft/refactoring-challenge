@@ -22,27 +22,23 @@ class GildedRose {
         boolean isExpired = item.sellIn < 1;
         int degradeRate = determineDegradeRate(item, isExpired);
         boolean doesDegrade = !item.name.equals(AGED_BRIE) && !item.name.equals(BACKSTAGE_PASSES) && !item.name.equals(SULFURAS);
+        boolean hasSellByDate = !item.name.equals(SULFURAS);
 
         if (doesDegrade) {
             adjustQuality(item, degradeRate);
         }
 
         if (item.name.equals(AGED_BRIE)) {
-            adjustQuality(item, 1);
+            int adjustment = isExpired ? 2 : 1;
+            adjustQuality(item, adjustment);
         }
 
         if (item.name.equals(BACKSTAGE_PASSES)) {
             updateBackstagePassQuality(item, isExpired);
         }
 
-        if (!item.name.equals(SULFURAS)) {
+        if (hasSellByDate) {
             item.sellIn = item.sellIn - 1;
-        }
-
-        if (isExpired) {
-            if (item.name.equals(AGED_BRIE)) {
-                adjustQuality(item, 1);
-            }
         }
     }
 
