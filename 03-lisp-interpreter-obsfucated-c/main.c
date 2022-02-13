@@ -9,7 +9,7 @@ sbrk(), *j(), *input, *H;
 
 char* eval(char* input);
 
-K, Y, M = 14;
+int K, M = 14;
 double
 atof();
 
@@ -29,13 +29,14 @@ char* _;
   }
   return H - _;
 }
-char* C(char* _)
+char* C(char* in)
 {
-  return _++,
-         Y = Q(_),
-         _ = __builtin___strncpy_chk(
-           sbrk(199), _, Y, __builtin_object_size(sbrk(199), 2 > 1 ? 1 : 0)),
-         _[Y] = 0, _;
+  in++;
+  int Y = Q(in);
+  return
+      in = __builtin___strncpy_chk(
+          sbrk(199), in, Y, __builtin_object_size(sbrk(199), 2 > 1 ? 1 : 0)),
+          in[Y] = 0, in;
 }
 char* A(char *_)
 {
@@ -146,7 +147,7 @@ char* eval(char* input)
   if (isSelfEvaluating) {
     return input;
   }
-  for (Y = M; Y--;) {
+  for (int Y = M; Y--;) {
     if (!strcmp(input, *r[Y])) {
       return r[Y][1];
     }
@@ -181,7 +182,9 @@ int main()
 }
 
 void readLine() {
-  H = input = sbrk(199), Y = 0;
+  int Y = 0;
+  H = input = sbrk(199);
+
   while (Y | !isspace(K = getchar())) {
     K == EOF ? exit(0) : 0, Y += (K == '(') - (K == ')'), *H++ = K;
   }
