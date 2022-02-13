@@ -1,0 +1,26 @@
+- input: (+ 1 1)
+  output: "2.000000"
+- input: (+ 2.5 3.1)
+  output: "5.600000"
+- input: |
+    (defun fib (n) (if (< n 2) 1 (+ (fib (- n 2)) (fib (- n 1)))))
+    (fib 10)
+  output: "fib\n89.000000"
+- input: |
+    (defun ! (x) (if (equal x 0) 1 (* x (! (- x 1)))))
+    (! 7)
+  output: "!\n5040.000000"
+- input: |
+    (defun fn1 (fn) (+ (fn 1 2) (fn 3 4)))
+    (defun fn2 (a b) (+ a b))
+    (fn1 (function +))
+    (fn1 (function fn2))
+    (fn1 (function (lambda (z1 z2) (+ z1 z2))))
+  output: "fn1\nfn2\n10.000000\n10.000000\n10.000000"
+- input: |
+    (quote a)
+    (cons (quote (a b)) (quote (c d e)))
+    (cons (quote (f)) ())
+    (car (quote (a b c)))
+    (cdr (cdr (quote (g h i))))
+  output: "a\n((a b) c d e)\n((f))\na\n(i)"
