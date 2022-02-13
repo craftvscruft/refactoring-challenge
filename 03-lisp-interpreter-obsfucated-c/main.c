@@ -15,38 +15,47 @@ atof();
 
 char* readLine();
 
-Q(_)
-char* _;
+bool isNotNil(const char *input);
+
+int lengthOfNextExpression(char* in)
 {
-  int V = 0;
-  while (isspace(*_)) {
-    _++;
+  int nestingDepth = 0;
+  while (isspace(*in)) {
+    in++;
   }
-  char *H = _;
-  while (V | !(isspace(*H) | *H == ')' || (*H == '(' && H - _))) {
-    V += (*H == '(') - (*H == ')');
-    H++;
+  char *marker = in;
+  while (nestingDepth != 0 | !(isspace(*marker) | *marker == ')' || (*marker == '(' && marker - in))) {
+    if (*marker == '(') {
+      nestingDepth++;
+    } else if (*marker == ')') {
+      nestingDepth--;
+    }
+    marker++;
   }
-  return H - _;
+  return marker - in;
 }
-char* C(char* in)
+char* getNextExpression(char* in)
+{
+  // Increment in ptr
+  // Get length of next expression
+  // Copy next expression somewhere and return it
+  in++;
+  int exprLength = lengthOfNextExpression(in);
+  char *out = __builtin___strncpy_chk(sbrk(199), in, exprLength, __builtin_object_size(sbrk(199), 1));
+  out[exprLength] = 0;
+  return out;
+}
+char* trimSpaceAndAddOpenParenMaybe(char *in)
 {
   in++;
-  int Y = Q(in);
-  return
-      in = __builtin___strncpy_chk(
-          sbrk(199), in, Y, __builtin_object_size(sbrk(199), 2 > 1 ? 1 : 0)),
-          in[Y] = 0, in;
-}
-char* A(char *_)
-{
-  _++, _ += Q(_);
-  while (isspace(*_)) {
-    _++;
+  in += lengthOfNextExpression(in);
+  while (isspace(*in)) {
+    in++;
   }
-  char *input = sbrk(199);
-  *input = '(', strcpy(input + 1, _);
-  return input;
+  char *output = sbrk(199);
+  *output = '(';
+  strcpy(output + 1, in);
+  return output;
 }
 char* Z(char* _)
 {
@@ -54,16 +63,16 @@ char* Z(char* _)
 }
 char* c(char* _)
 {
-  return C(eval(C(_)));
+  return getNextExpression(eval(getNextExpression(_)));
 }
 char* q(char* _)
 {
-  return A(eval(C(_)));
+  return trimSpaceAndAddOpenParenMaybe(eval(getNextExpression(_)));
 }
 char* t(char* _)
 {
-  char* i = eval(C(_));
-  char *H = eval(C(A(_)));
+  char* i = eval(getNextExpression(_));
+  char *H = eval(getNextExpression(trimSpaceAndAddOpenParenMaybe(_)));
   char * input = sbrk(199);
   return
          __builtin___sprintf_chk(
@@ -79,7 +88,8 @@ char* t(char* _)
 }
 char* somethingAboutIf(char* in)
 {
-  return eval(C(A(!strcmp(eval(C(in)), "()") ? A(in) : in)));
+  return eval(getNextExpression(
+      trimSpaceAndAddOpenParenMaybe(!strcmp(eval(getNextExpression(in)), "()") ? trimSpaceAndAddOpenParenMaybe(in) : in)));
 }
 L(char * i, char *s)
 {
@@ -87,15 +97,15 @@ L(char * i, char *s)
 }
 char* b(char* _)
 {
-  return L(eval(C(_)), eval(C(A(_)))) ? "()" : "t";
+  return L(eval(getNextExpression(_)), eval(getNextExpression(trimSpaceAndAddOpenParenMaybe(_)))) ? "()" : "t";
 }
 char* R(char* _)
 {
-  return eval(C(_));
+  return eval(getNextExpression(_));
 }
 char* o(char* _)
 {
-  return atof(eval(C(_))) < atof(eval(C(A(_)))) ? "t" : "()";
+  return atof(eval(getNextExpression(_))) < atof(eval(getNextExpression(trimSpaceAndAddOpenParenMaybe(_)))) ? "t" : "()";
 }
 char* f(char* _)
 {
@@ -105,7 +115,7 @@ char* f(char* _)
            0,
            __builtin_object_size(i = sbrk(199), 2 > 1 ? 1 : 0),
            "%lf",
-           atof(eval(C(_))) + atof(eval(C(A(_))))),
+           atof(eval(getNextExpression(_))) + atof(eval(getNextExpression(trimSpaceAndAddOpenParenMaybe(_))))),
          i;
 }
 char* g(char* _)
@@ -116,7 +126,7 @@ char* g(char* _)
            0,
            __builtin_object_size(i = sbrk(199), 2 > 1 ? 1 : 0),
            "%lf",
-           atof(eval(C(_))) - atof(eval(C(A(_))))),
+           atof(eval(getNextExpression(_))) - atof(eval(getNextExpression(trimSpaceAndAddOpenParenMaybe(_))))),
          i;
 }
 char* h(char* _)
@@ -127,15 +137,15 @@ char* h(char* _)
            0,
            __builtin_object_size(i = sbrk(199), 2 > 1 ? 1 : 0),
            "%lf",
-           atof(eval(C(_))) * atof(eval(C(A(_))))),
+           atof(eval(getNextExpression(_))) * atof(eval(getNextExpression(trimSpaceAndAddOpenParenMaybe(_))))),
          i;
 }
-char* r[4][2] = { "function", (char*)R, "quote", (char*)C,
-                  "lambda",   (char*)Z, "defun", (char*)j };
+char* specialFormHandlers[4][2] = {"function", (char*)R, "quote", (char*)getNextExpression,
+                                   "lambda", (char*)Z, "defun", (char*)j };
 char* j(char* _)
 {
-  r[someIndex][1] = A(_);
-  return *r[someIndex++] = C(_);
+  specialFormHandlers[someIndex][1] = trimSpaceAndAddOpenParenMaybe(_);
+  return *specialFormHandlers[someIndex++] = getNextExpression(_);
 }
 char * not [99][2] = {"if", (char*)somethingAboutIf, "equal", (char*)b, "<",
                       (char*)o, "+", (char*)f, "-", (char*)g,
@@ -144,34 +154,40 @@ char * not [99][2] = {"if", (char*)somethingAboutIf, "equal", (char*)b, "<",
 char* eval(char* input)
 {
   int Li, s;
-  char* u;
   bool isSelfEvaluating = isdigit(*input) | !strcmp(input, "()");
   if (isSelfEvaluating) {
     return input;
   }
   for (int Y = someIndex; Y--;) {
-    if (!strcmp(input, *r[Y])) {
-      return r[Y][1];
+    if (!strcmp(input, *specialFormHandlers[Y])) {
+      return specialFormHandlers[Y][1];
     }
   }
-  u = eval(C(input)), input = A(input);
-  if (*u - '(') {
-    return (*((char* (*)())u))(input);
+  char* valueOfNextExpr = eval(getNextExpression(input));
+  input = trimSpaceAndAddOpenParenMaybe(input);
+  int isNotOpenParen = *valueOfNextExpr - '(';
+  if (isNotOpenParen) {
+    return (*((char* (*)())valueOfNextExpr))(input);
   }
   s = Li = someIndex;
-  while (!!strcmp(input, "()")) {
-    r[someIndex][1] = eval(C(input));
-    *r[someIndex++] = "";
-    input = A(input);
+
+  while (isNotNil(input)) {
+    specialFormHandlers[someIndex][1] = eval(getNextExpression(input));
+    *specialFormHandlers[someIndex++] = "";
+    input = trimSpaceAndAddOpenParenMaybe(input);
   }
-  input = C(u);
-  while (!!strcmp(input, "()")) {
-    *r[Li++] = C(input), input = A(input);
+  input = getNextExpression(valueOfNextExpr);
+  while (isNotNil(input)) {
+    *specialFormHandlers[Li++] = getNextExpression(input);
+    input = trimSpaceAndAddOpenParenMaybe(input);
   }
-  input = eval(C(A(u)));
+  input = eval(getNextExpression(trimSpaceAndAddOpenParenMaybe(valueOfNextExpr)));
   someIndex = s;
   return input;
 }
+
+bool isNotNil(const char *input) { return !!strcmp(input, "()"); }
+
 int main()
 {
   // Read Eval Print Loop
