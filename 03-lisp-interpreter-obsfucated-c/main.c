@@ -5,15 +5,15 @@
 #include <string.h>
 
 char *
-sbrk(), *j(), *input, *H;
+sbrk(), *j(), *H;
 
 char* eval(char* input);
 
-int M = 14;
+int someIndex = 14;
 double
 atof();
 
-void readLine();
+char* readLine();
 
 Q(_)
 char* _;
@@ -44,7 +44,7 @@ char* A(char *_)
   while (isspace(*_)) {
     _++;
   }
-  input = sbrk(199);
+  char *input = sbrk(199);
   *input = '(', strcpy(input + 1, _);
   return input;
 }
@@ -63,9 +63,11 @@ char* q(char* _)
 char* t(char* _)
 {
   char* i = eval(C(_));
-  return H = eval(C(A(_))),
+  H = eval(C(A(_)));
+  char * input = sbrk(199);
+  return
          __builtin___sprintf_chk(
-             input = sbrk(199),
+             input,
              0,
              __builtin_object_size(input = sbrk(199), 2 > 1 ? 1 : 0),
            !strcmp(H, "()") ? "(%s)" : "(%s %s",
@@ -132,8 +134,8 @@ char* r[4][2] = { "function", (char*)R, "quote", (char*)C,
                   "lambda",   (char*)Z, "defun", (char*)j };
 char* j(char* _)
 {
-  r[M][1] = A(_);
-  return *r[M++] = C(_);
+  r[someIndex][1] = A(_);
+  return *r[someIndex++] = C(_);
 }
 char * not [99][2] = {"if", (char*)somethingAboutIf, "equal", (char*)b, "<",
                       (char*)o, "+", (char*)f, "-", (char*)g,
@@ -147,7 +149,7 @@ char* eval(char* input)
   if (isSelfEvaluating) {
     return input;
   }
-  for (int Y = M; Y--;) {
+  for (int Y = someIndex; Y--;) {
     if (!strcmp(input, *r[Y])) {
       return r[Y][1];
     }
@@ -156,10 +158,10 @@ char* eval(char* input)
   if (*u - '(') {
     return (*((char* (*)())u))(input);
   }
-  s = Li = M;
+  s = Li = someIndex;
   while (!!strcmp(input, "()")) {
-    r[M][1] = eval(C(input));
-    *r[M++] = "";
+    r[someIndex][1] = eval(C(input));
+    *r[someIndex++] = "";
     input = A(input);
   }
   input = C(u);
@@ -167,25 +169,27 @@ char* eval(char* input)
     *r[Li++] = C(input), input = A(input);
   }
   input = eval(C(A(u)));
-  M = s;
+  someIndex = s;
   return input;
 }
 int main()
 {
   // Read Eval Print Loop
   while (1) {
-    readLine();
+    char * input = readLine();
     char *result = eval(input);
     *H = 0;
     puts(result);
   }
 }
 
-void readLine() {
+char * readLine() {
   int Y = 0;
-  H = input = sbrk(199);
+  char * input = sbrk(199);
+  H = input;
   int ch;
   while (Y | !isspace(ch = getchar())) {
     ch == EOF ? exit(0) : 0, Y += (ch == '(') - (ch == ')'), *H++ = ch;
   }
+  return input;
 }
