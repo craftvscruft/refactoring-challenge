@@ -9,7 +9,7 @@ sbrk(), *j(), *input, *H;
 
 char* eval(char* input);
 
-int K, M = 14;
+int M = 14;
 double
 atof();
 
@@ -184,8 +184,8 @@ int main()
 void readLine() {
   int Y = 0;
   H = input = sbrk(199);
-
-  while (Y | !isspace(K = getchar())) {
-    K == EOF ? exit(0) : 0, Y += (K == '(') - (K == ')'), *H++ = K;
+  int ch;
+  while (Y | !isspace(ch = getchar())) {
+    ch == EOF ? exit(0) : 0, Y += (ch == '(') - (ch == ')'), *H++ = ch;
   }
 }
