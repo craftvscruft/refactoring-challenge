@@ -22,7 +22,7 @@ char* _;
   }
   return H - _;
 }
-char* C(_) char* _;
+char* C(char* _)
 {
   return _++,
          Y = Q(_),
@@ -30,7 +30,7 @@ char* C(_) char* _;
            sbrk(199), _, Y, __builtin_object_size(sbrk(199), 2 > 1 ? 1 : 0)),
          _[Y] = 0, _;
 }
-char* A(_) char* _;
+char* A(char *_)
 {
   _++, _ += Q(_);
   while (isspace(*_)) {
@@ -38,19 +38,19 @@ char* A(_) char* _;
   }
   return O = sbrk(199), *O = '(', strcpy(O + 1, _), O;
 }
-char* Z(_) char* _;
+char* Z(char* _)
 {
   return _;
 }
-char* c(_) char* _;
+char* c(char* _)
 {
   return C(S(C(_)));
 }
-char* q(_) char* _;
+char* q(char* _)
 {
   return A(S(C(_)));
 }
-char* t(_) char* _;
+char* t(char* _)
 {
   char* i = S(C(_));
   return H = S(C(A(_))),
@@ -65,31 +65,27 @@ char* t(_) char* _;
            ,
          O;
 }
-char* F(_) char* _;
+char* F(char* _)
 {
   return S(C(A(!strcmp(S(C(_)), "()") ? A(_) : _)));
 }
-L(i, s)
-char *
-
-  i,
-  *s;
+L(char * i, char *s)
 {
   return isdigit(*i) ? atof(i) != atof(s) : strcmp(i, s);
 }
-char* b(_) char* _;
+char* b(char* _)
 {
   return L(S(C(_)), S(C(A(_)))) ? "()" : "t";
 }
-char* R(_) char* _;
+char* R(char* _)
 {
   return S(C(_));
 }
-char* o(_) char* _;
+char* o(char* _)
 {
   return atof(S(C(_))) < atof(S(C(A(_)))) ? "t" : "()";
 }
-char* f(_) char* _;
+char* f(char* _)
 {
   char* i;
   return __builtin___sprintf_chk(
@@ -100,7 +96,7 @@ char* f(_) char* _;
            atof(S(C(_))) + atof(S(C(A(_))))),
          i;
 }
-char* g(_) char* _;
+char* g(char* _)
 {
   char* i;
   return __builtin___sprintf_chk(
@@ -111,7 +107,7 @@ char* g(_) char* _;
            atof(S(C(_))) - atof(S(C(A(_))))),
          i;
 }
-char* h(_) char* _;
+char* h(char* _)
 {
   char* i;
   return __builtin___sprintf_chk(
@@ -124,7 +120,7 @@ char* h(_) char* _;
 }
 char* r[4][2] = { "function", (char*)R, "quote", (char*)C,
                   "lambda",   (char*)Z, "defun", (char*)j };
-char* j(_) char* _;
+char* j(char* _)
 {
   return r[M][1] = A(_), *r[M++] = C(_);
 }
@@ -132,7 +128,7 @@ char * not [99][2] = { "if",     (char*)F, "equal",  (char*)b, "<",
                        (char*)o, "+",      (char*)f, "-",      (char*)g,
                        "*",      (char*)h, "car",    (char*)c, "cdr",
                        (char*)q, "cons",   (char*)t, "t",      "t" };
-char* S(_) char* _;
+char* S(char* _)
 {
   int Li, s;
   char* u;
@@ -158,7 +154,7 @@ char* S(_) char* _;
   }
   return O = S(C(A(u))), M = s, O;
 }
-main()
+int main()
 {
   H = O = sbrk(199), Y = 0;
   while (Y | !isspace(K = getchar())) {
