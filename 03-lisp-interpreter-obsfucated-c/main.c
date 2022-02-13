@@ -5,7 +5,7 @@
 #include <string.h>
 
 char *
-sbrk(), *j(), *H;
+sbrk(), *j();
 
 char* eval(char* input);
 
@@ -22,7 +22,7 @@ char* _;
   while (isspace(*_)) {
     _++;
   }
-  H = _;
+  char *H = _;
   while (V | !(isspace(*H) | *H == ')' || (*H == '(' && H - _))) {
     V += (*H == '(') - (*H == ')');
     H++;
@@ -63,7 +63,7 @@ char* q(char* _)
 char* t(char* _)
 {
   char* i = eval(C(_));
-  H = eval(C(A(_)));
+  char *H = eval(C(A(_)));
   char * input = sbrk(199);
   return
          __builtin___sprintf_chk(
@@ -178,7 +178,6 @@ int main()
   while (1) {
     char * input = readLine();
     char *result = eval(input);
-    *H = 0;
     puts(result);
   }
 }
@@ -186,7 +185,7 @@ int main()
 char * readLine() {
   int Y = 0;
   char * input = sbrk(199);
-  H = input;
+  char *H = input;
   int ch;
   while (Y | !isspace(ch = getchar())) {
     ch == EOF ? exit(0) : 0, Y += (ch == '(') - (ch == ')'), *H++ = ch;
