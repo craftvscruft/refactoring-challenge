@@ -2,42 +2,70 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#define p char*
-#define P ,(p)
-#define T(E) !strcmp(E,"()")
-#define U return
-#define W while
-#define X sbrk(199)
-#define z atof
-#define e isspace
-#define D A(_)
-#define E S(C(_))
-#define B(y) p y(_)p _;{
-#define G(y,V) B(y)p i;U sprintf(i=X,"%lf",z(E)V z(S(C(D)))),i;}
 
-	    p sbrk(),*S(),*j(),*O,*H;K,Y,M=14;double
-	  z();Q(_)p _;{int V=0;W(e(*_))_++;H=_;W(V|!(e
+char * sbrk(),*S(),*j(),*O,*H;K,Y,M=14;double
+atof();Q(_)
+char * _;{int V=0;
+while(
+isspace(*_))_++;H=_;
+while(V|!(
+isspace
 	(*H)|*H==')'||(*H=='('&&H-_)))V+=(*H=='(')-(*H==
-      ')'),H++;U H-_;}B(C)U _++,Y=Q(_),_=strncpy(X,_,Y),_[
-    Y]=0,_;}B(A)_++,_+=Q(_);W(e(*_))_++;U O=X,*O='(',strcpy(
-  O+1,_),O;}B(Z)U _;}B(c)U C(E);}B(q)U A(E);}B(t)p i=E;U H=S(C
-(D)),sprintf(O=X,T(H		         )?"(%s)":"(%s %s",i,H+1)
+      ')'),H++;return H-_;}char *C(_)char *_;{
+  return _++,Y=Q(_),_= __builtin___strncpy_chk(sbrk(199), _, Y, __builtin_object_size(sbrk(199), 2 > 1 ? 1 : 0)),_[
+    Y]=0,_;}char *A(_)char *_;{_++,_+=Q(_);
+  while(isspace(*_))_++;
+  return O= sbrk(199),*O='(',strcpy(
+  O+1,_),O;}char *Z(_)char *_;{ return _;}char *c(_)char *_;{ return C(S(C(_)));}char *q(_)char *_;{ return A(S(C(_)));}char *t(_)char *_;{
+  char * i= S(C(_));
+  return H=S(C
+(A(_))), __builtin___sprintf_chk(O = sbrk(199), 0, __builtin_object_size(O = sbrk(199), 2 > 1 ? 1 : 0),
+                              !strcmp(H, "()") ? "(%s)" : "(%s %s", i, H + 1)
 
-	     ,O;}B(F)U S(C(A(T(E)?D:_)));}L(i,s)p
+	     ,O;}char *F(_)char *_;{ return S(C(A(!strcmp(S(C(_)), "()")? A(_):_)));}L(i,s)
+char *
 
-i,*s;{U isdigit(*i)		?         z(i)!=z(s):strcmp(i,s);}
-  B(b)U L(E,S(C(D)))?"()":"t";}B(R)U E;}B(o)U z(E)<z(S(C(D)))?
-    "t":"()";}G(f,+)G(g,-)G(h,*)p r[4][2]={"function"   P R,
-      "quote"P C,"lambda"P Z,"defun"P j};B(j)U r[M][1]=D,*
-	r[M++]=C(_);}p not[99][2]={"if"P F,"equal"P b,"<"
-	  P o,"+"P f,"-"P g,"*"P h,"car"P c,"cdr"P q,
-	    "cons"P t,"t","t"};B(S)int Li,s;p u;if(
-	      isdigit(*_)|T(_))U _;for(Y=M;Y--;)
-		if(!strcmp(_,*r[Y]))U r[Y][1]
-	      ;u=E,_=D;if(*u-'(')U(*((p(*)())u)
-	    )(_);s=Li=M;W(!T(_))r[M][1]=E,*r[M++]
-	="",_=D;O=C(u);W(!T(O))*r[Li++]=C(O),O=A(O);U O=S
-    (C(A(u))),M=s,O;}main(){H=O=X,Y=0;W(Y|!e(K=getchar()))K==
+i,*s;{
+return isdigit(*i)		?
+atof(i)!=
+atof(s):strcmp(i,s);}
+char *b(_)char *_;{ return L(S(C(_)),S(C(A(_))))?"()":"t";}char *R(_)char *_;{ return S(C(_));}char *o(_)char *_;{
+  return atof(S(C(_)))< atof(S(C(A(_))))?
+    "t":"()";}char *f(_)char *_;{
+  char *i;
+  return __builtin___sprintf_chk(i = sbrk(199), 0, __builtin_object_size(i = sbrk(199), 2 > 1 ? 1 : 0), "%lf",
+                                 atof(S(C(_))) + atof(S(C(A(_))))), i;
+}char *g(_)char *_;{
+  char *i;
+  return __builtin___sprintf_chk(i = sbrk(199), 0, __builtin_object_size(i = sbrk(199), 2 > 1 ? 1 : 0), "%lf",
+                                 atof(S(C(_))) - atof(S(C(A(_))))), i;
+}char *h(_)char *_;{
+  char *i;
+  return __builtin___sprintf_chk(i = sbrk(199), 0, __builtin_object_size(i = sbrk(199), 2 > 1 ? 1 : 0), "%lf",
+                                 atof(S(C(_))) * atof(S(C(A(_))))), i;
+}
+char * r[4][2]={"function", (char *) R,
+      "quote", (char *) C,"lambda", (char *) Z,"defun", (char *) j};
+char *j(_)char *_;{
+  return r[M][1]= A(_),*
+	r[M++]=C(_);}
+char * not[99][2]={"if", (char *) F,"equal", (char *) b,"<", (char *) o,"+", (char *) f,"-", (char *) g,"*", (char *) h,"car", (char *) c,"cdr", (char *) q,
+	    "cons", (char *) t,"t","t"};
+char *S(_)char *_;{int Li,s;
+  char * u;if(
+	      isdigit(*_)| !strcmp(_, "()"))
+    return _;for(Y=M;Y--;)
+		if(!strcmp(_,*r[Y]))
+      return r[Y][1]
+	      ;u= S(C(_)),_= A(_);if(*u-'(')
+    return(*((char *(*)())u)
+	    )(_);s=Li=M;
+  while(!!strcmp(_, "()"))r[M][1]= S(C(_)),*r[M++]
+	="",_= A(_);O=C(u);
+  while(!!strcmp(O, "()"))*r[Li++]=C(O),O=A(O);
+  return O=S
+    (C(A(u))),M=s,O;}main(){H=O= sbrk(199),Y=0;
+  while(Y|!isspace(K=getchar()))K==
     EOF?exit(0):0,Y+=(K=='(')-(K==')'),*H++=K;*H=0,puts(S(O))
 				,
  		main();{printf("XLISP 4.0\n");}}
