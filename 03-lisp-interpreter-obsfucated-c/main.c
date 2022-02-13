@@ -13,11 +13,13 @@ Q(_)
 char* _;
 {
   int V = 0;
-  while (isspace(*_))
+  while (isspace(*_)) {
     _++;
+  }
   H = _;
-  while (V | !(isspace(*H) | *H == ')' || (*H == '(' && H - _)))
+  while (V | !(isspace(*H) | *H == ')' || (*H == '(' && H - _))) {
     V += (*H == '(') - (*H == ')'), H++;
+  }
   return H - _;
 }
 char* C(_) char* _;
@@ -31,8 +33,9 @@ char* C(_) char* _;
 char* A(_) char* _;
 {
   _++, _ += Q(_);
-  while (isspace(*_))
+  while (isspace(*_)) {
     _++;
+  }
   return O = sbrk(199), *O = '(', strcpy(O + 1, _), O;
 }
 char* Z(_) char* _;
@@ -133,17 +136,22 @@ char* S(_) char* _;
 {
   int Li, s;
   char* u;
-  if (isdigit(*_) | !strcmp(_, "()"))
+  if (isdigit(*_) | !strcmp(_, "()")) {
     return _;
-  for (Y = M; Y--;)
-    if (!strcmp(_, *r[Y]))
+  }
+  for (Y = M; Y--;) {
+    if (!strcmp(_, *r[Y])) {
       return r[Y][1];
+    }
+  }
   u = S(C(_)), _ = A(_);
-  if (*u - '(')
+  if (*u - '(') {
     return (*((char* (*)())u))(_);
+  }
   s = Li = M;
-  while (!!strcmp(_, "()"))
+  while (!!strcmp(_, "()")) {
     r[M][1] = S(C(_)), *r[M++] = "", _ = A(_);
+  }
   O = C(u);
   while (!!strcmp(O, "()")) {
     *r[Li++] = C(O), O = A(O);
@@ -153,8 +161,9 @@ char* S(_) char* _;
 main()
 {
   H = O = sbrk(199), Y = 0;
-  while (Y | !isspace(K = getchar()))
+  while (Y | !isspace(K = getchar())) {
     K == EOF ? exit(0) : 0, Y += (K == '(') - (K == ')'), *H++ = K;
+  }
   *H = 0, puts(S(O)), main();
   {
     printf("XLISP 4.0\n");
