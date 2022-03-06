@@ -23,7 +23,7 @@ public class TripService_Original {
 				}
 			}
 			if (isFriend) {
-				tripList = TripDAO.findTripsByUser(user);
+				tripList = new TripDAO().findTripsByUser(user);
 			}
 			return tripList;
 		} else {
