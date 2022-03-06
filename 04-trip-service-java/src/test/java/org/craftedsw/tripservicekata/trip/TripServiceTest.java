@@ -16,8 +16,9 @@ public class TripServiceTest {
 
     @BeforeEach
     public void setup() {
-        subject = new TripService();
         tripDAO = new FakeTripDAO();
+        subject = new TripService(tripDAO);
+
         session = new FakeUserSession();
     }
 
@@ -29,7 +30,7 @@ public class TripServiceTest {
         Trip trip = new Trip();
         tripDAO.foundTrips.add(trip);
 
-        List<Trip> result = subject.getTripsByUser(user, session, tripDAO);
+        List<Trip> result = subject.getTripsByUser(user, session);
 
         assertEquals(1, result.size());
         assertSame(trip, result.get(0));
@@ -43,7 +44,7 @@ public class TripServiceTest {
         Trip trip = new Trip();
         tripDAO.foundTrips.add(trip);
 
-        List<Trip> result = subject.getTripsByUser(user, session, tripDAO);
+        List<Trip> result = subject.getTripsByUser(user, session);
 
         assertEquals(0, result.size());
     }
@@ -53,9 +54,9 @@ public class TripServiceTest {
         User user = new User();
         Trip trip = new Trip();
         tripDAO.foundTrips.add(trip);
-        
+
         assertThrows(UserNotLoggedInException.class, () -> {
-            subject.getTripsByUser(user, session, tripDAO);
+            subject.getTripsByUser(user, session);
         });
     }
 }
