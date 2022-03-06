@@ -20,23 +20,18 @@ public class TripService {
 	}
 
 	List<Trip> getTripsByUser(User user, IUserSession session) {
-		List<Trip> tripList = new ArrayList<Trip>();
 		User loggedUser = session.getLoggedUser();
-		boolean isFriend = false;
-		if (loggedUser != null) {
-			for (User friend : user.getFriends()) {
-				if (friend.equals(loggedUser)) {
-					isFriend = true;
-					break;
-				}
-			}
-			if (isFriend) {
-				tripList = tripDAO.findTripsByUser(user);
-			}
-			return tripList;
-		} else {
+		if (loggedUser == null) {
 			throw new UserNotLoggedInException();
 		}
+		if (isFriend(user, loggedUser)) {
+			return tripDAO.findTripsByUser(user);
+		}
+		return new ArrayList<>();
+	}
+
+	private boolean isFriend(User user, User maybeFriend) {
+		return user.getFriends().stream().anyMatch((f) -> f.equals(maybeFriend));
 	}
 
 }
